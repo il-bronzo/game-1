@@ -1,5 +1,5 @@
-#Game project 1
+# Game project 1
 
-##Description
+## Description
 
 The description will come soon.
