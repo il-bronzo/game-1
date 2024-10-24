@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(255, 239, 62); /*I can remove this afterwards*/
+}
+
+#game-area {
+    width: 120vh;
+    height: 80vh;
+    background-color: rgb(195, 195, 195);
+    position: relative;
+    border: 3px solid rgb(110, 110, 110);
+   /*  border-radius: 10px; */  /* per arrotondare i bordi */
+}
+
+#player {
+    background-color: rgb(255, 208, 216);
+    height: 60px;
+    width: 30px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 1px solid black;
+}
+
+.platform {
+    background-color: rgb(165, 100, 60);
+   /*  height: 30 px; */
+    width: 100%;
+    position: absolute;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.platform:first-child { /* the first platform (the one on the bottom) will have bottom 0 so that its border does not overwrite the one of the game area */
+   bottom: 0;
+}
