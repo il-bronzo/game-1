@@ -37,7 +37,7 @@ class Platform {
 
     myGame.element.appendChild(this.element);
     }
-}
+}  
 
 
 const gap = (myGame.height - Game.borderWidth - 4*Platform.height)/4;

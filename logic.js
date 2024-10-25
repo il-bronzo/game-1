@@ -6,6 +6,8 @@ document.addEventListener("keydown", (press) => {
         case "ArrowRight":
             myPlayer.direction = "right";
             break;
+        case " ":
+        myPlayer.jump();
         default:
             break;
     }
@@ -16,6 +18,7 @@ document.addEventListener("keyup", (unpress) => {
         myPlayer.direction = null;
     }
 });
+
 
 let frames = 0;
 

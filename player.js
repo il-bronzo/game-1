@@ -3,6 +3,7 @@ class Player {
     static width = 30;
     static border = "1px solid black";
     static borderWidth = parseInt(Player.border, 10);
+
     constructor () {
         //visual
         this.element = document.createElement("div");
@@ -16,13 +17,18 @@ class Player {
         // initial position on the first platform
         this.element.style.left = 10 + "px";
         this.x = parseInt(this.element.style.left);
-        this.y = firstPlatform.y;
-        this.element.style.top = (firstPlatform.y - this.element.getBoundingClientRect().height) + 'px'
-
+        /* this.y = firstPlatform.y; */
+        this.element.style.top = (firstPlatform.y - Player.height) + 'px'
+        this.y = parseInt(this.element.style.top);
 
         //features (speed, etc.)
         this.speed = 2;
         this.direction = null;
+
+        //jump features
+        this.jumpSpeed = 10;
+        this.gravity = 0.5  ;
+        this.jumping = false;
 
     }
 
@@ -39,8 +45,28 @@ class Player {
             }
         }
         this.element.style.left = this.x + 'px';
+
+        // check if the player is jumping, the vertical position y is updated
+        if (this.jumping) {
+            this.y -= this.jumpSpeed;
+            this.jumpSpeed -= this.gravity;
+
+            if (this.y >= firstPlatform.y - Player.height) {
+                this.jumping = false; 
+                this.jumpSpeed = 10;
+                this.y = firstPlatform.y - Player.height;
+            }
+
+            this.element.style.top = this.y + "px";
+        } 
     }
-}
+    
+    jump() {
+            if(!this.jumping) {
+                this.jumping = true; 
+            }
+        }
+    }
 
 const myPlayer = new Player();
 console.log("myPlayer x ", myPlayer.x);
