@@ -53,4 +53,6 @@ const myPlatforms = [
     new Platform(0, myGame.height - Game.borderWidth - 2 * Platform.height - Platform.borderWidth - gap),
     new Platform(0, myGame.height - 3 * Platform.height - Platform.borderWidth - 2 * gap),
     new Platform(0, myGame.height - 4 * Platform.height - Platform.borderWidth - 3*gap)
-]
+] // I have created the array of platforms
+
+const firstPlatform = myPlatforms[0]; // I select the first platform, this will be used to place the player on it (player.js)
