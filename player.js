@@ -26,10 +26,10 @@ class Player {
         this.direction = null;
 
         //jump features
-        this.jumpSpeed = 3;
+        this.jumpSpeed = 4; //prima 3
         this.gravity = 0.08;
         this.jumping = false;
-
+        
     }
 
     walk(direction) {
@@ -41,7 +41,8 @@ class Player {
         } else if (direction === "right") {
             this.x += this.speed;
             if (this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) {
-                this.x = myGame.width - 2*Game.borderWidth - Player.width;
+                // this.x = myGame.width - 2*Game.borderWidth - Player.width;
+                this.x = myGame.width - Game.borderWidth - Player.width - Player.borderWidth
             }
         }
         this.element.style.left = this.x + 'px';
@@ -51,11 +52,11 @@ class Player {
             this.y -= this.jumpSpeed;
             this.jumpSpeed -= this.gravity;
 
-            this.checkPlatformCollision;
+        /*    this.checkPlatformCollision(); */
 
             if (this.y >= firstPlatform.y - Player.height) { //the player lands again on the upper side of the platform
                 this.jumping = false; 
-                this.jumpSpeed = 3;
+                this.jumpSpeed = 4;
                 this.y = firstPlatform.y - Player.height;
             }
 
@@ -69,17 +70,28 @@ class Player {
             }
         }
 
-    checkPlatformCollision() {
+        //uncomment also line 54
+/*     checkPlatformCollision() {
         myPlatforms.forEach(platform => {
-            if (this.y - Player.height <= platform.y + platform.height && this.y >= platform.y - platform.height) {
+            if (this.y <= platform.y + platform.height && this.y > platform.y) {
             this.jumping = false;
-            this.jumpSpeed = 0;
+            this.jumpSpeed = 4;
+            
                 }
-            });
-        }
+            
+            //the player lands again on the upper side of the platform    
+            if (this.y >= platform.y - Player.height) { //the player lands again on the upper side of the platform
+                this.jumping = false; 
+                this.jumpSpeed = 4;
+                this.y = platform.y - Player.height;
+            }
+            }); 
+        } */
     }
 
 const myPlayer = new Player();
 console.log("myPlayer x ", myPlayer.x);
 console.log("myPlayer y ", myPlayer.y);
 console.log("Player width ", Player.width);
+console.log("actual y player ", myPlayer.y);
+console.log("actual y plataforma 1", myPlatforms[0].y);

@@ -44,3 +44,8 @@ body {
 .platform:first-child { /* the first platform (the one on the bottom) will have bottom 0 so that its border does not overwrite the one of the game area */
    bottom: 0;
 }
+
+.ladder {
+    position: absolute;
+    background-color: beige;
+}

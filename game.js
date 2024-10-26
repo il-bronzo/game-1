@@ -39,6 +39,27 @@ class Platform {
     }
 }  
 
+class Ladder {
+    constructor (platform1, platform2) {
+        this.platform1 = platform1;
+        this.platform2 = platform2;
+        this.width = 30;
+        this.height = gap + Platform.height;
+
+        //I create the elements
+        this.element = document.createElement("div");
+        this.element.classList.add("ladder");
+
+        this.element.style.height = this.height + "px";
+        this.element.style.width = this.width + "px";
+        this.element.style.left = this.platform1.x + "px";
+        this.element.style.top = (this.platform1.y - gap - Platform.height) + "px";
+
+
+        myGame.element.appendChild(this.element);
+    }
+}
+
 
 const gap = (myGame.height - Game.borderWidth - 4*Platform.height)/4;
 console.log ("myPlatform border width ", Platform.borderWidth)
@@ -55,4 +76,19 @@ const myPlatforms = [
     new Platform(0, myGame.height - Game.borderWidth - Platform.borderWidth - 4 * Platform.height - 3*gap)
 ] // I have created the array of platforms
 
+console.log("myGame height ", myGame.height);
+console.log("Game borderwidth ", Game.borderWidth);
+console.log("y de la primera plataforma ", myPlatforms[0].y);
+console.log("y de la segunda plataforma ", myPlatforms[1].y);
 const firstPlatform = myPlatforms[0]; // I select the first platform, this will be used to place the player on it (player.js)
+
+
+function createLadders (platforms) {
+    platforms.forEach((platform, index) => {
+        if (index < 3) {
+            new Ladder (platform, platforms[index+1]);
+        }
+    })
+}
+
+createLadders (myPlatforms);
