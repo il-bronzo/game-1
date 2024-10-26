@@ -20,6 +20,7 @@ class Player {
         /* this.y = firstPlatform.y; */
         this.element.style.top = (firstPlatform.y - Player.height) + 'px'
         this.y = parseInt(this.element.style.top);
+        this.currentPlatform = firstPlatform;
 
         //features (speed, etc.)
         this.speed = 2;
@@ -33,6 +34,7 @@ class Player {
     }
 
     walk(direction) {
+        // SIDE MOVEMENT - LEFT-RIGHT
         if (direction === "left") {
             this.x -= this.speed;
             if (this.x <=0) {
@@ -49,7 +51,8 @@ class Player {
         }
         this.element.style.left = this.x + 'px';
 
-        // check if the player is jumping, the vertical position y is updated
+        //JUMP MOVEMENT
+        // check if the player is jumping, the vertical position "y" is updated
         if (this.jumping) {
             this.y -= this.jumpSpeed;
             this.jumpSpeed -= this.gravity;
