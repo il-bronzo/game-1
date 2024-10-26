@@ -26,8 +26,8 @@ class Player {
         this.direction = null;
 
         //jump features
-        this.jumpSpeed = 10;
-        this.gravity = 0.5  ;
+        this.jumpSpeed = 3;
+        this.gravity = 0.08;
         this.jumping = false;
 
     }
@@ -51,9 +51,11 @@ class Player {
             this.y -= this.jumpSpeed;
             this.jumpSpeed -= this.gravity;
 
-            if (this.y >= firstPlatform.y - Player.height) {
+            this.checkPlatformCollision;
+
+            if (this.y >= firstPlatform.y - Player.height) { //the player lands again on the upper side of the platform
                 this.jumping = false; 
-                this.jumpSpeed = 10;
+                this.jumpSpeed = 3;
                 this.y = firstPlatform.y - Player.height;
             }
 
@@ -66,10 +68,18 @@ class Player {
                 this.jumping = true; 
             }
         }
+
+    checkPlatformCollision() {
+        myPlatforms.forEach(platform => {
+            if (this.y - Player.height <= platform.y + platform.height && this.y >= platform.y - platform.height) {
+            this.jumping = false;
+            this.jumpSpeed = 0;
+                }
+            });
+        }
     }
 
 const myPlayer = new Player();
 console.log("myPlayer x ", myPlayer.x);
 console.log("myPlayer y ", myPlayer.y);
 console.log("Player width ", Player.width);
-

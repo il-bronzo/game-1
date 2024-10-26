@@ -49,10 +49,10 @@ console.log("gamearea height ", myGame.height);
 console.log("gamearea border width ", Game.borderWidth);
 
 const myPlatforms = [
-    new Platform(0, myGame.height - Game.borderWidth - Platform.height - Platform.borderWidth), 
-    new Platform(0, myGame.height - Game.borderWidth - 2 * Platform.height - Platform.borderWidth - gap),
-    new Platform(0, myGame.height - 3 * Platform.height - Platform.borderWidth - 2 * gap),
-    new Platform(0, myGame.height - 4 * Platform.height - Platform.borderWidth - 3*gap)
+    new Platform(0, myGame.height - Game.borderWidth - Platform.borderWidth - Platform.height), 
+    new Platform(0, myGame.height - Game.borderWidth - Platform.borderWidth - 2 * Platform.height - gap),
+    new Platform(0, myGame.height - Game.borderWidth - Platform.borderWidth - 3 * Platform.height - 2 * gap),
+    new Platform(0, myGame.height - Game.borderWidth - Platform.borderWidth - 4 * Platform.height - 3*gap)
 ] // I have created the array of platforms
 
 const firstPlatform = myPlatforms[0]; // I select the first platform, this will be used to place the player on it (player.js)
