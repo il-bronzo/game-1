@@ -41,10 +41,11 @@ class Platform {
 }  
 
 class Ladder {
+        static width = 30;
     constructor (platform1, platform2) {
         this.platform1 = platform1;
         this.platform2 = platform2;
-        this.width = 30;
+        this.width = Ladder.width;
         this.height = gap + Platform.height + Platform.borderWidth;
 
         //I create the elements
@@ -53,10 +54,9 @@ class Ladder {
 
         this.element.style.height = this.height + "px";
         this.element.style.width = this.width + "px";
-        const randomNum = Math.random(); //I create this number to generate a random x of the ladder. I will then detract o,5 to generate a second ladder that is far from the previous one like the half of game area width
-        this.element.style.left = randomNum*myGame.width + "px";
+        /* const randomNum = Math.random(); //I create this number to generate a random x of the ladder. I will then detract 0,5 to generate a second ladder that is far from the previous one like the half of game area width
+        this.element.style.left = randomNum*myGame.width + "px"; */
         this.element.style.top = (this.platform1.y - gap - Platform.height) + "px";
-
 
         myGame.element.appendChild(this.element);
     }
@@ -85,12 +85,21 @@ console.log("y de la segunda plataforma ", myPlatforms[1].y);
 const firstPlatform = myPlatforms[0]; // I select the first platform, this will be used to place the player on it (player.js)
 
 
-function createLadders (platforms) {
+function createLadders(platforms) {
     platforms.forEach((platform, index) => {
         if (index < 3) {
-            new Ladder (platform, platforms[index+1]);
+            const randomX = Math.floor(Math.random()*(myGame.width - Ladder.width));
+            const ladder1 = new Ladder (platform, platforms[index+1]);
+            ladder1.element.style.left = randomX + "px";
+            let randomX2 = randomX + (myGame.width / 3);
+            if (randomX + randomX2 > myGame.width) {
+                randomX2 = randomX - (myGame.width / 3);
+            }
+
+            const ladder2 = new Ladder (platform, platforms[index+1]);
+            ladder2.element.style.left = randomX2 + "px";
         }
-    })
+    });
 }
 
 createLadders (myPlatforms);
