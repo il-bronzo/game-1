@@ -8,6 +8,7 @@ document.addEventListener("keydown", (press) => {
             break;
         case " ":
         myPlayer.jump();
+        break;
         default:
             break;
     }

@@ -20,21 +20,20 @@ class Player {
         /* this.y = firstPlatform.y; */
         this.element.style.top = (firstPlatform.y - Player.height) + 'px'
         this.y = parseInt(this.element.style.top);
-        this.currentPlatform = firstPlatform;
 
         //features (speed, etc.)
         this.speed = 2;
         this.direction = null;
 
         //jump features
-        this.jumpSpeed = 4; //prima 3
+        this.jumpSpeed = 5; //prima 3
+        this.currentSpeed = this.jumpSpeed;
         this.gravity = 0.08;
         this.jumping = false;
         
     }
 
     walk(direction) {
-        // SIDE MOVEMENT - LEFT-RIGHT
         if (direction === "left") {
             this.x -= this.speed;
             if (this.x <=0) {
@@ -51,17 +50,16 @@ class Player {
         }
         this.element.style.left = this.x + 'px';
 
-        //JUMP MOVEMENT
-        // check if the player is jumping, the vertical position "y" is updated
+        // check if the player is jumping, the vertical position y is updated
         if (this.jumping) {
-            this.y -= this.jumpSpeed;
-            this.jumpSpeed -= this.gravity;
+            this.y -= this.currentSpeed;
+            this.currentSpeed -= this.gravity;
 
         /*    this.checkPlatformCollision(); */
 
             if (this.y >= firstPlatform.y - Player.height) { //the player lands again on the upper side of the platform
                 this.jumping = false; 
-                this.jumpSpeed = 4;
+                this.currentSpeed = this.jumpSpeed;
                 this.y = firstPlatform.y - Player.height;
             }
 
