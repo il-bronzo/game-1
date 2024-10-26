@@ -45,7 +45,7 @@ class Ladder {
         this.platform1 = platform1;
         this.platform2 = platform2;
         this.width = 30;
-        this.height = gap + Platform.height;
+        this.height = gap + Platform.height + Platform.borderWidth;
 
         //I create the elements
         this.element = document.createElement("div");
