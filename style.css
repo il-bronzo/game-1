@@ -48,4 +48,5 @@ body {
 .ladder {
     position: absolute;
     background-color: beige;
+    border: 2px solid black;
 }

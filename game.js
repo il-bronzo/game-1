@@ -11,6 +11,7 @@ class Game {
 }
 
 const myGame = new Game();
+console.log("game area width ", myGame.width);
 
 class Platform {
     static height = 30;
@@ -52,7 +53,8 @@ class Ladder {
 
         this.element.style.height = this.height + "px";
         this.element.style.width = this.width + "px";
-        this.element.style.left = this.platform1.x + "px";
+        const randomNum = Math.random(); //I create this number to generate a random x of the ladder. I will then detract o,5 to generate a second ladder that is far from the previous one like the half of game area width
+        this.element.style.left = randomNum*myGame.width + "px";
         this.element.style.top = (this.platform1.y - gap - Platform.height) + "px";
 
 

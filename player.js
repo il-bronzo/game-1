@@ -40,9 +40,11 @@ class Player {
             }
         } else if (direction === "right") {
             this.x += this.speed;
-            if (this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) {
+            if (this.x >= myGame.width - 2*Game.borderWidth - Player.width - 2*Player.borderWidth) {
+            /* if (this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) { */
                 // this.x = myGame.width - 2*Game.borderWidth - Player.width;
-                this.x = myGame.width - Game.borderWidth - Player.width - Player.borderWidth
+                /* this.x = myGame.width - Game.borderWidth - Player.width - Player.borderWidth */
+                this.x = myGame.width - 2*Game.borderWidth - Player.width;
             }
         }
         this.element.style.left = this.x + 'px';
