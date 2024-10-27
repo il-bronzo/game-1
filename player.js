@@ -3,6 +3,8 @@ class Player {
   static width = 30;
   static border = "1px solid black";
   static borderWidth = parseInt(Player.border, 10);
+  static startPlatform = 1;
+  static currentPlatformIndex = Player.startPlatform -1;
 
   constructor() {
     //visual
@@ -15,11 +17,15 @@ class Player {
     this.element.style.border = Player.border;
 
     // initial position on the first platform
+    this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
     this.element.style.left = 10 + "px";
     this.x = parseInt(this.element.style.left);
     /* this.y = firstPlatform.y; */
-    this.element.style.top = firstPlatform.y - Player.height + "px";
+    this.element.style.top = this.currentPlatform.y - Player.height + "px";
     this.y = parseInt(this.element.style.top);
+    this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
+    console.log("current platform ", this.currentPlatform);
+    console.log("current index ", Player.currentPlatformIndex);
 
     //features (speed, etc.)
     this.speed = 2;
@@ -62,11 +68,11 @@ class Player {
 
       /*    this.checkPlatformCollision(); */
 
-      if (this.y >= firstPlatform.y - Player.height) {
+      if (this.y >= this.currentPlatform.y - Player.height) {
         //the player lands again on the upper side of the platform
         this.jumping = false;
         this.currentSpeed = this.jumpSpeed;
-        this.y = firstPlatform.y - Player.height;
+        this.y = this.currentPlatform.y - Player.height;
       }
 
       this.element.style.top = this.y + "px";
