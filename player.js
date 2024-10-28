@@ -47,16 +47,11 @@ class Player {
     } else if (direction === "right") {
       this.x += this.speed;
       if (
-        this.x >=
-        myGame.width -
-          2 * Game.borderWidth -
-          Player.width -
-          2 * Player.borderWidth
-      ) {
+        this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) {
         /* if (this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) { */
         // this.x = myGame.width - 2*Game.borderWidth - Player.width;
         /* this.x = myGame.width - Game.borderWidth - Player.width - Player.borderWidth */
-        this.x = myGame.width - 2 * Game.borderWidth - Player.width;
+        this.x = myGame.width - Game.borderWidth - Player.width - 2*Player.borderWidth;
       }
     }
     this.element.style.left = this.x + "px";
@@ -66,10 +61,10 @@ class Player {
       this.y -= this.currentSpeed;
       this.currentSpeed -= this.gravity;
 
-      /*    this.checkPlatformCollision(); */
+    // this.checkPlatformCollision();
 
+    //the player lands again on the upper side of the platform
       if (this.y >= this.currentPlatform.y - Player.height) {
-        //the player lands again on the upper side of the platform
         this.jumping = false;
         this.currentSpeed = this.jumpSpeed;
         this.y = this.currentPlatform.y - Player.height;
@@ -110,3 +105,5 @@ console.log("myPlayer y ", myPlayer.y);
 console.log("Player width ", Player.width);
 console.log("actual y player ", myPlayer.y);
 console.log("actual y plataforma 1", myPlatforms[0].y);
+
+
