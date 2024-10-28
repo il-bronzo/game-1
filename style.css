@@ -13,12 +13,10 @@ body {
 }
 
 #game-area {
-  width: 120vh;
+  width: 55vw;
   height: 80vh;
   background-color: rgb(195, 195, 195);
   position: relative;
-  /* border: 3px solid rgb(110, 110, 110); */
-  /*  border-radius: 10px; */ /* per arrotondare i bordi */
 }
 
 #player {
@@ -28,7 +26,6 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  /* border: 1px solid black; */
 }
 
 .platform {
@@ -36,7 +33,6 @@ body {
   /*  height: 30 px; */
   width: 100%;
   position: absolute;
-  /* border: 2px solid black; */
   box-sizing: border-box;
 }
 
@@ -48,5 +44,4 @@ body {
 .ladder {
   position: absolute;
   background-color: beige;
-  border: 2px solid black;
 }

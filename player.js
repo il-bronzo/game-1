@@ -1,8 +1,6 @@
 class Player {
   static height = 50; //this is only a value, but does not create visually the player. For that, I need to use this value with this.element.styel.height.
   static width = 30;
-  static border = "1px solid black";
-  static borderWidth = parseInt(Player.border, 10);
   static startPlatform = 1;
   static currentPlatformIndex = Player.startPlatform -1;
 
@@ -14,7 +12,6 @@ class Player {
 
     this.element.style.height = Player.height + "px";
     this.element.style.width = Player.width + "px";
-    this.element.style.border = Player.border;
 
     // initial position on the first platform
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
@@ -47,11 +44,8 @@ class Player {
     } else if (direction === "right") {
       this.x += this.speed;
       if (
-        this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) {
-        /* if (this.x >= myGame.width - Game.borderWidth - Player.width - Player.borderWidth) { */
-        // this.x = myGame.width - 2*Game.borderWidth - Player.width;
-        /* this.x = myGame.width - Game.borderWidth - Player.width - Player.borderWidth */
-        this.x = myGame.width - Game.borderWidth - Player.width - 2*Player.borderWidth;
+        this.x >= myGame.width - Player.width) {
+        this.x = myGame.width - Player.width;
       }
     }
     this.element.style.left = this.x + "px";
@@ -100,10 +94,3 @@ class Player {
 }
 
 const myPlayer = new Player();
-console.log("myPlayer x ", myPlayer.x);
-console.log("myPlayer y ", myPlayer.y);
-console.log("Player width ", Player.width);
-console.log("actual y player ", myPlayer.y);
-console.log("actual y plataforma 1", myPlatforms[0].y);
-
-
