@@ -1,5 +1,5 @@
 class Player {
-  static height = 50; //this is only a value, but does not create visually the player. For that, I need to use this value with this.element.styel.height.
+  static height = 20; //this is only a value, but does not create visually the player. For that, I need to use this value with this.element.styel.height.
   static width = 30;
   static startPlatform = 1;
   static currentPlatformIndex = Player.startPlatform -1;
@@ -17,7 +17,6 @@ class Player {
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
     this.element.style.left = 10 + "px";
     this.x = parseInt(this.element.style.left);
-    /* this.y = firstPlatform.y; */
     this.element.style.top = this.currentPlatform.y - Player.height + "px";
     this.y = parseInt(this.element.style.top);
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
@@ -29,7 +28,7 @@ class Player {
     this.direction = null;
 
     //jump features
-    this.jumpSpeed = 5; //prima 3
+    this.jumpSpeed = 5;
     this.currentSpeed = this.jumpSpeed;
     this.gravity = 0.08;
     this.jumping = false;
@@ -52,10 +51,17 @@ class Player {
 
     // check if the player is jumping, the vertical position y is updated
     if (this.jumping) {
+/*       if (this.y <= myPlatforms[Player.currentPlatformIndex + 1].y + Platform.height) {
+        console.log ("upper platform 'y' ", myPlatforms[Player.currentPlatformIndex + 1].y)
+        this.jumping = false;
+        Player.currentSpeed = this.jumpSpeed;
+        this.y = this.currentPlatform.y - Player.height;
+      } */
+     console.log(this.y)
       this.y -= this.currentSpeed;
       this.currentSpeed -= this.gravity;
 
-    // this.checkPlatformCollision();
+/*     this.checkPlatformCollision(); */
 
     //the player lands again on the upper side of the platform
       if (this.y >= this.currentPlatform.y - Player.height) {
@@ -65,6 +71,7 @@ class Player {
       }
 
       this.element.style.top = this.y + "px";
+      console.log(this.y)
     }
   }
 
@@ -74,23 +81,45 @@ class Player {
     }
   }
 
-  //uncomment also line 54
-  /*     checkPlatformCollision() {
+  //uncomment also line 64
+/*       checkPlatformCollision() {
         myPlatforms.forEach(platform => {
             if (this.y <= platform.y + platform.height && this.y > platform.y) {
-            this.jumping = false;
-            this.jumpSpeed = 4;
+            this.currentSpeed = this.jumpSpeed;
+        this.y = this.currentPlatform.y - Player.height;
             
                 }
             
             //the player lands again on the upper side of the platform    
-            if (this.y >= platform.y - Player.height) { //the player lands again on the upper side of the platform
+            if (this.y >= platform.y - Player.height) {
                 this.jumping = false; 
-                this.jumpSpeed = 4;
+                this.currentSpeed = this.jumpSpeed;
                 this.y = platform.y - Player.height;
             }
             }); 
         } */
+
+   /*  checkPlatformCollision() {
+      const currentPlatform = this.currentPlatform;
+      if(Player.currentPlatformIndex < myPlatforms.length -1) {
+        const upperPlatform = myPlatforms[Player.currentPlatformIndex + 1];
+        if (this.y <= upperPlatform.y + Platform.height) {
+          this.jumping = false;
+          this.currentSpeed = -this.jumpSpeed;
+          this.y = currentPlatform.y - Player.height;
+      }
+
+    }
+    if (this.y >= currentPlatform.y - Player.height) {
+
+      this.jumping = false;
+      this.currentSpeed = this.jumpSpeed;
+      this.y = currentPlatform.y - Player.height; // Riporta il giocatore sopra la piattaforma corrente
+    }
+  
+    this.element.style.top = this.y + "px";
+  
+    } */
 }
 
 const myPlayer = new Player();

@@ -1,4 +1,5 @@
 document.addEventListener("keydown", (press) => {
+  console.log(press.key);
   switch (press.key) {
     case "ArrowLeft":
       myPlayer.direction = "left";
@@ -9,13 +10,19 @@ document.addEventListener("keydown", (press) => {
     case " ":
       myPlayer.jump();
       break;
+    case "ArrowUp":
+      myPlayer.direction = "up";
+      break;
+    case "ArrowDown":
+      myPlayer.direction = "down";
+      break;
     default:
       break;
   }
 });
 
 document.addEventListener("keyup", (unpress) => {
-  if (unpress.key === "ArrowLeft" || unpress.key === "ArrowRight") {
+  if (unpress.key === "ArrowLeft" || unpress.key === "ArrowRight" || unpress.key === "ArrowUp" || unpress.key === "ArrowDown") {
     myPlayer.direction = null;
   }
 });

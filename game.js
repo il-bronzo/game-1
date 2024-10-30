@@ -13,11 +13,10 @@ console.log("game area width ", myGame.width);
 class Platform {
     static height = 30;
     constructor (x, y) { 
+
     /* initial position */
     this.x = x;
     this.y = y;
-   /*  this.height = Platform.height; */
-    /* this.width = width; */
 
     /* I create the element in the document  */
     this.element = document.createElement("div");
@@ -26,7 +25,6 @@ class Platform {
     /* dinamic position, therefore I use element.style to update it */
     this.element.style.left = this.x + "px";
     this.element.style.top = this.y+ "px";
-    /* this.element.style.width = (this.width) + "px"; */
     this.element.style.height = (Platform.height) + "px";
 
     myGame.element.appendChild(this.element);
@@ -47,8 +45,6 @@ class Ladder {
 
         this.element.style.height = this.height + "px";
         this.element.style.width = this.width + "px";
-        /* const randomNum = Math.random(); //I create this number to generate a random x of the ladder. I will then detract 0,5 to generate a second ladder that is far from the previous one like the half of game area width
-        this.element.style.left = randomNum*myGame.width + "px"; */
         this.element.style.top = (this.platform1.y - gap - Platform.height) + "px";
 
         myGame.element.appendChild(this.element);
@@ -63,11 +59,9 @@ const myPlatforms = [
     new Platform(0, myGame.height - 2 * Platform.height - gap),
     new Platform(0, myGame.height - 3 * Platform.height - 2 * gap),
     new Platform(0, myGame.height - 4 * Platform.height - 3*gap)
-] // I have created the array of platforms
+] 
 
-const firstPlatform = myPlatforms[0]; // I select the first platform, this will be used to place the player on it (player.js)
-
-
+const myLadders = [];
 function createLadders(platforms) {
     platforms.forEach((platform, index) => {
         if (index < 3) {
@@ -81,8 +75,11 @@ function createLadders(platforms) {
 
             const ladder2 = new Ladder (platform, platforms[index+1]);
             ladder2.element.style.left = randomX2 + "px";
+            myLadders.push(ladder1, ladder2);
         }
     });
+
 }
 
 createLadders (myPlatforms);
+console.log("my ladders ", myLadders);
