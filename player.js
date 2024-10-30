@@ -47,6 +47,43 @@ class Player {
         this.x = myGame.width - Player.width;
       }
     }
+
+    if (direction === "up") {
+      myLadders.forEach(ladder => {
+        ladder.left = parseInt(ladder.element.style.left);
+        ladder.y = parseInt(ladder.element.style.top);
+        console.log("this x ",this.x);
+        console.log("ladder left ", ladder.left);
+        console.log ("ladder width ", Ladder.width);
+        console.log("this y - player height", this.y - Player.height);
+        console.log ("ladder y ", ladder.y);
+        console.log ("ladder y + ladder height ", ladder.y + ladder.height);
+        if (this.x <= ladder.left + Ladder.width && this.x + Player.width >= ladder.left && this.y + Player.height >= ladder.y && this.y < ladder.y + ladder.height) { 
+          this.y -= this.speed / 5;
+          if (this.y + Player.height === ladder.y) {
+            this.y = ladder.y - Player.height;
+          }
+        }
+      });
+    }
+
+    if (direction === "down") {
+      myLadders.forEach(ladder => {
+        ladder.left = parseInt(ladder.element.style.left);
+        ladder.y = parseInt(ladder.element.style.top);
+        if (this.x <= ladder.left + Ladder.width && this.x + Player.width >= ladder.left && this.y + Player.height >= ladder.y && this.y < ladder.y + ladder.height) { 
+          this.y += this.speed / 5;
+          if (this.y + Player.height === ladder.y + ladder.height) {
+            this.y = ladder.y - Player.height + ladder.height;
+            if (this.y + Player.height >= myGame.height) {
+              this.y = myGame.height - Player.height;
+            }        
+          }
+        }
+      });
+    }
+
+    this.element.style.top = this.y + "px";
     this.element.style.left = this.x + "px";
 
     // check if the player is jumping, the vertical position y is updated
