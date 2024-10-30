@@ -35,11 +35,14 @@ class Player {
   }
 
   walk(direction) {
+    // PLAYER MOVES LEFT
     if (direction === "left") {
       this.x -= this.speed;
       if (this.x <= 0) {
         this.x = 0;
       }
+
+    // PLAYER MOVES RIGHT
     } else if (direction === "right") {
       this.x += this.speed;
       if (
@@ -47,7 +50,8 @@ class Player {
         this.x = myGame.width - Player.width;
       }
     }
-
+    
+    //PLAYER MOVES UP
     if (direction === "up") {
       myLadders.forEach(ladder => {
         ladder.left = parseInt(ladder.element.style.left);
@@ -60,31 +64,40 @@ class Player {
         console.log ("ladder y + ladder height ", ladder.y + ladder.height);
         if (this.x <= ladder.left + Ladder.width && this.x + Player.width >= ladder.left && this.y + Player.height >= ladder.y && this.y < ladder.y + ladder.height) { 
           this.y -= this.speed / 5;
-          if (this.y + Player.height === ladder.y) {
+          
+          if (this.y + Player.height <= ladder.y) {
             this.y = ladder.y - Player.height;
+            Player.currentPlatformIndex ++;
+            console.log ("index platform after ladder up ", Player.currentPlatformIndex);
+            this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
+            console.log ("current platform after up ladder ", this.currentPlatform);
+            this.direction = null;
           }
         }
       });
     }
+    this.element.style.left = this.x + "px";
+    this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
 
+    //PLAYER MOVES DOWN
     if (direction === "down") {
       myLadders.forEach(ladder => {
         ladder.left = parseInt(ladder.element.style.left);
         ladder.y = parseInt(ladder.element.style.top);
-        if (this.x <= ladder.left + Ladder.width && this.x + Player.width >= ladder.left && this.y + Player.height >= ladder.y && this.y < ladder.y + ladder.height) { 
+        if (this.x <= ladder.left + Ladder.width && this.x + Player.width >= ladder.left && this.y + Player.height >= ladder.y && this.y + Player.height < ladder.y + ladder.height) { 
           this.y += this.speed / 5;
           if (this.y + Player.height === ladder.y + ladder.height) {
-            this.y = ladder.y - Player.height + ladder.height;
-            if (this.y + Player.height >= myGame.height) {
-              this.y = myGame.height - Player.height;
-            }        
+            this.currentPlatformIndex --; // this is not working
+            console.log ("current platform after ladder ", this.currentPlatform) //this is not working
+            this.y = ladder.y - Player.height + ladder.height;   
+            
+          this.direction = null;
           }
         }
       });
     }
 
     this.element.style.top = this.y + "px";
-    this.element.style.left = this.x + "px";
 
     // check if the player is jumping, the vertical position y is updated
     if (this.jumping) {
