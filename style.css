@@ -13,8 +13,8 @@ body {
 }
 
 #game-area {
-  width: 55vw;
-  height: 80vh;
+  width: 850px;
+  height: 650px;
   background-color: rgb(195, 195, 195);
   position: relative;
 }
