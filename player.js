@@ -109,7 +109,6 @@ class Player {
             this.currentPlatformIndex--; // this is not working
             console.log("current platform after ladder ", this.currentPlatform); //this is not working
             this.y = ladder.y - Player.height + ladder.height;
-
             this.direction = null;
           }
         }
@@ -192,3 +191,18 @@ class Player {
 }
 
 const myPlayer = new Player();
+
+//DEBUGGING
+console.log("myPlayer.y + Player.height ", myPlayer.y + Player.height);
+console.log("myPlayer.y ", myPlayer.y);
+console.log("myPlatforms[0].y ", myPlatforms[0].y);
+console.log("gap ", gap)
+console.log("myPlatforms[1].y ", myPlatforms[1].y);
+
+setInterval(()=> {
+  console.log("current myPlayer.y ", myPlayer.y)
+}, 5000)
+
+myLadders.forEach((ladder, index) => {
+  console.log(`current height de ladder número ${index} `, myLadders[index].height, "\n current y de base ", parseInt(myLadders[index].element.style.top) + myLadders[index].height, "\n current y ", parseInt(myLadders[index].element.style.top))
+})

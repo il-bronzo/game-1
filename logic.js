@@ -33,6 +33,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
   frames++;
   myPlayer.walk(myPlayer.direction);
+
 }
 
 requestAnimationFrame(gameLoop);
