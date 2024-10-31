@@ -16,9 +16,9 @@ class Player {
     // initial position on the first platform
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
     this.element.style.left = 10 + "px";
-    this.x = parseInt(this.element.style.left);
+    this.x = parseFloat(this.element.style.left);
     this.element.style.top = this.currentPlatform.y - Player.height + "px";
-    this.y = parseInt(this.element.style.top);
+    this.y = parseFloat(this.element.style.top);
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
     console.log("current platform ", this.currentPlatform);
     console.log("current index ", Player.currentPlatformIndex);
@@ -53,8 +53,8 @@ class Player {
     //PLAYER MOVES UP
     if (direction === "up") {
       myLadders.forEach((ladder, index) => {
-        ladder.left = parseInt(ladder.element.style.left);
-        ladder.y = parseInt(ladder.element.style.top);
+        ladder.left = parseFloat(ladder.element.style.left);
+        ladder.y = parseFloat(ladder.element.style.top);
 /*         console.log("this x ", this.x);
         console.log("ladder left ", ladder.left);
         console.log("ladder width ", Ladder.width);
@@ -96,8 +96,8 @@ class Player {
     //PLAYER MOVES DOWN
     if (direction === "down") {
       myLadders.forEach((ladder) => {
-        ladder.left = parseInt(ladder.element.style.left);
-        ladder.y = parseInt(ladder.element.style.top);
+        ladder.left = parseFloat(ladder.element.style.left);
+        ladder.y = parseFloat(ladder.element.style.top);
         if (
           this.x <= ladder.left + Ladder.width &&
           this.x + Player.width >= ladder.left &&
@@ -128,8 +128,6 @@ class Player {
       console.log(this.y);
       this.y -= this.currentSpeed;
       this.currentSpeed -= this.gravity;
-
-      /*     this.checkPlatformCollision(); */
 
       //the player lands again on the upper side of the platform
       if (this.y >= this.currentPlatform.y - Player.height) {
@@ -204,5 +202,5 @@ setInterval(()=> {
 }, 5000)
 
 myLadders.forEach((ladder, index) => {
-  console.log(`current height de ladder número ${index} `, myLadders[index].height, "\n current y de base ", parseInt(myLadders[index].element.style.top) + myLadders[index].height, "\n current y ", parseInt(myLadders[index].element.style.top))
+  console.log(`current height of ladder number ${index} `, myLadders[index].height, "\n current ladder y de base ", parseFloat(myLadders[index].element.style.top) + myLadders[index].height, "\n current ladder y ", parseFloat(myLadders[index].element.style.top))
 })
