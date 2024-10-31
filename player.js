@@ -54,7 +54,10 @@ class Player {
     if (direction === "up") {
       myLadders.forEach((ladder, index) => {
         ladder.left = parseFloat(ladder.element.style.left);
+        console.log("ladder.left ", ladder.left);
         ladder.y = parseFloat(ladder.element.style.top);
+        console.log("ladder.y ", ladder.y);
+        
 /*         console.log("this x ", this.x);
         console.log("ladder left ", ladder.left);
         console.log("ladder width ", Ladder.width);
@@ -74,7 +77,8 @@ class Player {
             this.y >=  myPlatforms[Player.currentPlatformIndex + 1].y  */ 
           ) {
             console.log("next ladder?",this.y > myPlatforms[Player.currentPlatformIndex + 1].y )
-            this.y = ladder.y - Player.height;
+            this.y = round(ladder.y - Player.height); //returns exactly 437.5 (in formato numero)
+            console.log ("aaaaaa ", round(ladder.y - Player.height));
             Player.currentPlatformIndex++;
             console.log(
               "index platform after ladder up ",
@@ -191,16 +195,17 @@ class Player {
 const myPlayer = new Player();
 
 //DEBUGGING
-console.log("myPlayer.y + Player.height ", myPlayer.y + Player.height);
+//console.log("myPlayer.y + Player.height ", myPlayer.y + Player.height);
 console.log("myPlayer.y ", myPlayer.y);
-console.log("myPlatforms[0].y ", myPlatforms[0].y);
-console.log("gap ", gap)
-console.log("myPlatforms[1].y ", myPlatforms[1].y);
+//console.log("myPlatforms[0].y ", myPlatforms[0].y);
+//console.log("gap ", gap)
+//console.log("myPlatforms[1].y ", myPlatforms[1].y);
 
 setInterval(()=> {
   console.log("current myPlayer.y ", myPlayer.y)
+  console.log("typeof current myPlayer.y", typeof(myPlayer.y))
 }, 5000)
 
-myLadders.forEach((ladder, index) => {
+/* myLadders.forEach((ladder, index) => {
   console.log(`current height of ladder number ${index} `, myLadders[index].height, "\n current ladder y de base ", parseFloat(myLadders[index].element.style.top) + myLadders[index].height, "\n current ladder y ", parseFloat(myLadders[index].element.style.top))
-})
+}) */

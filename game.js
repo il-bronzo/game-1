@@ -1,3 +1,7 @@
+function round(num) {
+    return parseFloat((Math.ceil(num * 2) / 2).toFixed(2));
+}
+
 class Game {
     constructor () {
         this.lives = 3;
