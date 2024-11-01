@@ -55,22 +55,22 @@ class Player {
       this.element.style.top = this.y + "px";
       console.log(this.y);
 
-// PLAYER MOVES LEFT
-if (direction === "left") {
-  this.x -= this.speed;
-  if (this.x <= 0) {
-    this.x = 0;
-  }
+      // PLAYER MOVES LEFT
+      if (direction === "left") {
+        this.x -= this.speed;
+        if (this.x <= 0) {
+          this.x = 0;
+        }
 
-  // PLAYER MOVES RIGHT
-} else if (direction === "right") {
-  this.x += this.speed;
-  if (this.x >= myGame.width - Player.width) {
-    this.x = myGame.width - Player.width;
-  }
-}
-this.element.style.left = this.x + "px";
-    }  //end of the jump
+        // PLAYER MOVES RIGHT
+      } else if (direction === "right") {
+        this.x += this.speed;
+        if (this.x >= myGame.width - Player.width) {
+          this.x = myGame.width - Player.width;
+        }
+      }
+      this.element.style.left = this.x + "px";
+          }  //end of the jump
 
 // PLAYER MOVE ON THE SIDE --> if the player is not jumping, it can only move left-right if on a platform (so he can not move left-right while on a ladder)
     myPlatforms.forEach(platform => {
@@ -153,17 +153,18 @@ this.element.style.left = this.x + "px";
         if (
           this.x <= ladder.left + Ladder.width &&
           this.x + Player.width >= ladder.left &&
-          this.y + Player.height >= ladder.y &&
-          this.y + Player.height < ladder.y + ladder.height
+          this.y + Player.height >= ladder.y - Player.margin &&
+          this.y + Player.height <= ladder.y + ladder.height + Player.margin
         ) {
           this.y += this.speed / 5;
-          if (this.y + Player.height === ladder.y + ladder.height) {
+          if (this.y + Player.height >= ladder.y + ladder.height - Player.margin && this.y + Player.height >= ladder.y + ladder.height - Player.margin) {
             this.currentPlatformIndex--; // this is not working
             console.log("current platform after ladder ", this.currentPlatform); //this is not working
             this.y = ladder.y - Player.height + ladder.height;
             this.direction = null;
           }
         }
+        /* this.element.style.top = this.currentPlatform.y - Player.height + "px"; */
       });
     }
 
