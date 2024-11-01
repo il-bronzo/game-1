@@ -3,6 +3,7 @@ class Player {
   static width = 30;
   static currentPlatformIndex = 0;
   static margin = 1;
+  static activeLadder = false;
 
   constructor() {
     //visual
@@ -73,9 +74,11 @@ class Player {
           }  //end of the jump
 
 // PLAYER MOVE ON THE SIDE --> if the player is not jumping, it can only move left-right if on a platform (so he can not move left-right while on a ladder)
-    myPlatforms.forEach(platform => {
+    
+if (this.jumping === false && Player.activeLadder === false) {
+myPlatforms.forEach(platform => {
 
-      if (this.jumping === false) { 
+       
       // PLAYER IS ON THE PLATFORM
       if (this.y >= platform.y - Player.height - Player.margin && this.y <= platform.y - Player.height + Player.margin) {
 
@@ -96,14 +99,15 @@ class Player {
         }
 
       }
-    }
-
-    });
-
     
 
+    });
+  }
+
+  
     //PLAYER MOVES UP
     if (direction === "up") {
+      
       myLadders.forEach((ladder, index) => {
         ladder.left = parseFloat(ladder.element.style.left);
         ladder.y = parseFloat(ladder.element.style.top);
