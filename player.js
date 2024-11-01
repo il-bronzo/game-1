@@ -1,8 +1,8 @@
 class Player {
   static height = 20; //this is only a value, but does not create visually the player. For that, I need to use this value with this.element.styel.height.
   static width = 30;
-  static startPlatform = 1;
-  static currentPlatformIndex = Player.startPlatform - 1;
+  static currentPlatformIndex = 0;
+  static margin = 1;
 
   constructor() {
     //visual
@@ -34,21 +34,34 @@ class Player {
     this.jumping = false;
   }
 
+  
+
   walk(direction) {
-    // PLAYER MOVES LEFT
-    if (direction === "left") {
-      this.x -= this.speed;
-      if (this.x <= 0) {
-        this.x = 0;
+    myPlatforms.forEach(platform => {
+      // PLAYER IS ON THE PLATFORM
+      if (this.y >= platform.y - Player.height - Player.margin && this.y <= platform.y - Player.height + Player.margin) {
+
+
+        // PLAYER MOVES LEFT
+        if (direction === "left") {
+          this.x -= this.speed;
+          if (this.x <= 0) {
+            this.x = 0;
+          }
+    
+          // PLAYER MOVES RIGHT
+        } else if (direction === "right") {
+          this.x += this.speed;
+          if (this.x >= myGame.width - Player.width) {
+            this.x = myGame.width - Player.width;
+          }
+        }
+
       }
 
-      // PLAYER MOVES RIGHT
-    } else if (direction === "right") {
-      this.x += this.speed;
-      if (this.x >= myGame.width - Player.width) {
-        this.x = myGame.width - Player.width;
-      }
-    }
+
+    });
+    
 
     //PLAYER MOVES UP
     if (direction === "up") {
@@ -198,9 +211,13 @@ console.log("gap ", gap)
 console.log("myPlatforms[1].y ", myPlatforms[1].y);
 
 setInterval(()=> {
-  console.log("current myPlayer.y ", myPlayer.y)
+  console.log("current myPlayer.y ", myPlayer.y);
+  console.log (myPlayer.y == myPlatforms[1].y - Player.height);
 }, 5000)
 
 myLadders.forEach((ladder, index) => {
   console.log(`current height of ladder number ${index} `, myLadders[index].height, "\n current ladder y de base ", parseFloat(myLadders[index].element.style.top) + myLadders[index].height, "\n current ladder y ", parseFloat(myLadders[index].element.style.top))
 })
+
+
+
