@@ -37,7 +37,45 @@ class Player {
   
 
   walk(direction) {
+
+    // PLAYER JUMPS --> if the player jumps can also move right and left (parabolic movement), even though it is not on a platform
+    if (this.jumping) {
+ 
+      console.log(this.y);
+      this.y -= this.currentSpeed;
+      this.currentSpeed -= this.gravity;
+
+      //the player lands again on the upper side of the platform
+      if (this.y >= this.currentPlatform.y - Player.height) {
+        this.jumping = false;
+        this.currentSpeed = this.jumpSpeed;
+        this.y = this.currentPlatform.y - Player.height;
+      }
+
+      this.element.style.top = this.y + "px";
+      console.log(this.y);
+
+// PLAYER MOVES LEFT
+if (direction === "left") {
+  this.x -= this.speed;
+  if (this.x <= 0) {
+    this.x = 0;
+  }
+
+  // PLAYER MOVES RIGHT
+} else if (direction === "right") {
+  this.x += this.speed;
+  if (this.x >= myGame.width - Player.width) {
+    this.x = myGame.width - Player.width;
+  }
+}
+this.element.style.left = this.x + "px";
+    }  //end of the jump
+
+// PLAYER MOVE ON THE SIDE --> if the player is not jumping, it can only move left-right if on a platform (so he can not move left-right while on a ladder)
     myPlatforms.forEach(platform => {
+
+      if (this.jumping === false) { 
       // PLAYER IS ON THE PLATFORM
       if (this.y >= platform.y - Player.height - Player.margin && this.y <= platform.y - Player.height + Player.margin) {
 
@@ -58,9 +96,10 @@ class Player {
         }
 
       }
-
+    }
 
     });
+
     
 
     //PLAYER MOVES UP
@@ -131,27 +170,7 @@ class Player {
     this.element.style.top = this.y + "px";
 
     // check if the player is jumping, the vertical position y is updated
-    if (this.jumping) {
-      /*       if (this.y <= myPlatforms[Player.currentPlatformIndex + 1].y + Platform.height) {
-        console.log ("upper platform 'y' ", myPlatforms[Player.currentPlatformIndex + 1].y)
-        this.jumping = false;
-        Player.currentSpeed = this.jumpSpeed;
-        this.y = this.currentPlatform.y - Player.height;
-      } */
-      console.log(this.y);
-      this.y -= this.currentSpeed;
-      this.currentSpeed -= this.gravity;
 
-      //the player lands again on the upper side of the platform
-      if (this.y >= this.currentPlatform.y - Player.height) {
-        this.jumping = false;
-        this.currentSpeed = this.jumpSpeed;
-        this.y = this.currentPlatform.y - Player.height;
-      }
-
-      this.element.style.top = this.y + "px";
-      console.log(this.y);
-    }
   }
 
   jump() {
