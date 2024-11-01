@@ -3,7 +3,7 @@ class Player {
   static width = 30;
   static currentPlatformIndex = 0;
   static margin = 1;
-  static activeLadder = false;
+  
 
   constructor() {
     //visual
@@ -27,6 +27,7 @@ class Player {
     //features (speed, etc.)
     this.speed = 2;
     this.direction = null;
+    this.activeLadder = false;
 
     //jump features
     this.jumpSpeed = 5;
@@ -41,13 +42,12 @@ class Player {
 
     // PLAYER JUMPS --> if the player jumps can also move right and left (parabolic movement), even though it is not on a platform
     if (this.jumping) {
- 
-      console.log(this.y);
+ console.log ("we are going to jump from platform", this.currentPlatform )
       this.y -= this.currentSpeed;
       this.currentSpeed -= this.gravity;
 
       //the player lands again on the upper side of the platform
-      if (this.y >= this.currentPlatform.y - Player.height) {
+      if (this.y >= this.currentPlatform.y - Player.height - Player.margin && this.y <= this.currentPlatform.y + Player.margin) {
         this.jumping = false;
         this.currentSpeed = this.jumpSpeed;
         this.y = this.currentPlatform.y - Player.height;
@@ -75,7 +75,7 @@ class Player {
 
 // PLAYER MOVE ON THE SIDE --> if the player is not jumping, it can only move left-right if on a platform (so he can not move left-right while on a ladder)
     
-if (this.jumping === false && Player.activeLadder === false) {
+if (this.jumping === false && this.activeLadder === false) {
 myPlatforms.forEach(platform => {
 
        
@@ -99,8 +99,6 @@ myPlatforms.forEach(platform => {
         }
 
       }
-    
-
     });
   }
 
@@ -108,48 +106,42 @@ myPlatforms.forEach(platform => {
     //PLAYER MOVES UP
     if (direction === "up") {
       
-      myLadders.forEach((ladder, index) => {
+      myLadders.forEach((ladder) => {
         ladder.left = parseFloat(ladder.element.style.left);
         ladder.y = parseFloat(ladder.element.style.top);
-/*         console.log("this x ", this.x);
-        console.log("ladder left ", ladder.left);
-        console.log("ladder width ", Ladder.width);
-        console.log("this y - player height", this.y - Player.height);
-        console.log("ladder y ", ladder.y);
-        console.log("ladder y + ladder height ", ladder.y + ladder.height); */
+
         if (
           this.x <= ladder.left + Ladder.width &&
           this.x + Player.width >= ladder.left &&
           this.y + Player.height >= ladder.y &&
-          this.y < ladder.y + ladder.height
+          this.y <= ladder.y + ladder.height  && Player.currentPlatformIndex < myPlatforms.length
         ) {
           this.y -= this.speed / 5;
 
           if (
-            this.y + Player.height <= ladder.y /* &&
-            this.y >=  myPlatforms[Player.currentPlatformIndex + 1].y  */ 
-          ) {
-            console.log("next ladder?",this.y > myPlatforms[Player.currentPlatformIndex + 1].y )
-            this.y = ladder.y - Player.height;
+            this.y >= ladder.y - Player.height - Player.margin && this.y <= myPlatforms[Player.currentPlatformIndex +1].y - Player.height) {
+            console.log ("Il giocatore è salito di una piattaforma")
+            console.log("next ladder?", this.y > myPlatforms[Player.currentPlatformIndex + 1].y )
             Player.currentPlatformIndex++;
-            console.log(
-              "index platform after ladder up ",
-              Player.currentPlatformIndex
-            );
             this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
-            console.log(
-              "current platform after up ladder ",
-              this.currentPlatform
-            );
+            this.y = this.currentPlatform.y - Player.height;
+        
             this.direction = null;
+            console.log("index platform after ladder up ", Player.currentPlatformIndex)
+            console.log("platform after ladder up ", this.currentPlatform)
           }
+
+          
         }
       });
+
     }
+    this.element.style.top = this.y + "px";
     this.element.style.left = this.x + "px";
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
+  
 
-    //PLAYER MOVES DOWN
+     //PLAYER MOVES DOWN //FINO QUI
     if (direction === "down") {
       myLadders.forEach((ladder) => {
         ladder.left = parseFloat(ladder.element.style.left);
@@ -161,19 +153,26 @@ myPlatforms.forEach(platform => {
           this.y + Player.height <= ladder.y + ladder.height + Player.margin
         ) {
           this.y += this.speed / 5;
-          if (this.y + Player.height >= ladder.y + ladder.height - Player.margin && this.y + Player.height >= ladder.y + ladder.height - Player.margin) {
+          if (
+            this.y + Player.height >=
+              ladder.y + ladder.height - Player.margin &&
+            this.y + Player.height >= ladder.y + ladder.height - Player.margin
+          ) {
             this.currentPlatformIndex--; // this is not working
-            console.log("current platform after ladder ", this.currentPlatform); //this is not working
             this.y = ladder.y - Player.height + ladder.height;
             this.direction = null;
+            console.log("index platform after ladder down ", Player.currentPlatformIndex)
+            console.log("platform after ladder down ", this.currentPlatform)
           }
         }
         /* this.element.style.top = this.currentPlatform.y - Player.height + "px"; */
       });
     }
 
-    this.element.style.top = this.y + "px";
 
+    this.element.style.top = this.y + "px";
+    this.element.style.left = this.x + "px";
+    this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
     // check if the player is jumping, the vertical position y is updated
 
   }
@@ -228,7 +227,7 @@ myPlatforms.forEach(platform => {
 const myPlayer = new Player();
 
 //DEBUGGING
-console.log("myPlayer.y + Player.height ", myPlayer.y + Player.height);
+/* console.log("myPlayer.y + Player.height ", myPlayer.y + Player.height);
 console.log("myPlayer.y ", myPlayer.y);
 console.log("myPlatforms[0].y ", myPlatforms[0].y);
 console.log("gap ", gap)
@@ -241,7 +240,6 @@ setInterval(()=> {
 
 myLadders.forEach((ladder, index) => {
   console.log(`current height of ladder number ${index} `, myLadders[index].height, "\n current ladder y de base ", parseFloat(myLadders[index].element.style.top) + myLadders[index].height, "\n current ladder y ", parseFloat(myLadders[index].element.style.top))
-})
-
+}) */
 
 
