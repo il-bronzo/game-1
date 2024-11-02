@@ -153,8 +153,8 @@ if (Player.currentPlatformIndex !== myPlatforms.length -1) {
     this.element.style.left = this.x + "px";
     this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
   
-
-     //PLAYER MOVES DOWN //FINO QUI
+//MOVE UP FUNZIONA FINO QUI
+     //PLAYER MOVES DOWN
     if (direction === "down") {
       myLadders.forEach((ladder) => {
         ladder.left = parseFloat(ladder.element.style.left);
@@ -166,18 +166,29 @@ if (Player.currentPlatformIndex !== myPlatforms.length -1) {
           this.y + Player.height <= ladder.y + ladder.height + Player.margin
         ) {
           this.y += this.speed / 5;
+      if (Player.currentPlatformIndex > 0) {
           if (
-            this.y + Player.height >=
-              ladder.y + ladder.height - Player.margin &&
-            this.y + Player.height >= ladder.y + ladder.height - Player.margin
+            this.y >= ladder.y + ladder.height - Player.height - Player.margin && this.y >= myPlatforms[Player.currentPlatformIndex -1].y - Player.height
           ) {
-            this.currentPlatformIndex--; // this is not working
-            this.y = ladder.y - Player.height + ladder.height;
+            console.log ("Il giocatore è sceso di una piattaforma");
+            Player.currentPlatformIndex--; // this is not working
+            this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
+            this.y = myPlatforms[Player.currentPlatformIndex -1].y - Player.height;
             this.direction = null;
             console.log("index platform after ladder down ", Player.currentPlatformIndex)
             console.log("platform after ladder down ", this.currentPlatform)
           }
+        } else if (Player.currentPlatformIndex === 0) {
+          if ( this.y >= ladder.y + ladder.height - Player.height - Player.margin) {
+            console.log ("Il giocatore è sceso di una piattaforma");
+            this.currentPlatform = myPlatforms[0];
+            this.y = myPlatforms[0].y - Player.height
+            this.direction = null;
+            console.log("index platform after ladder down ", Player.currentPlatformIndex)
+            console.log("platform after ladder down ", this.currentPlatform)
+            }
         }
+         }
         /* this.element.style.top = this.currentPlatform.y - Player.height + "px"; */
       });
     }
