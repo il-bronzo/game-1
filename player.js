@@ -118,10 +118,11 @@ myPlatforms.forEach(platform => {
         ) {
           this.y -= this.speed / 5;
 
+
+if (Player.currentPlatformIndex !== myPlatforms.length -1) { 
           if (
             this.y >= ladder.y - Player.height - Player.margin && this.y <= myPlatforms[Player.currentPlatformIndex +1].y - Player.height) {
             console.log ("Il giocatore è salito di una piattaforma")
-            console.log("next ladder?", this.y > myPlatforms[Player.currentPlatformIndex + 1].y )
             Player.currentPlatformIndex++;
             this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
             this.y = this.currentPlatform.y - Player.height;
@@ -129,8 +130,20 @@ myPlatforms.forEach(platform => {
             this.direction = null;
             console.log("index platform after ladder up ", Player.currentPlatformIndex)
             console.log("platform after ladder up ", this.currentPlatform)
-          }
+          } 
 
+
+ } else {
+  if (
+    this.y >= ladder.y - Player.height - Player.margin) {
+      this.currentPlatform = myPlatforms[Player.currentPlatformIndex];
+  this.y = this.currentPlatform.y - Player.height;
+
+  this.direction = null;
+  console.log("index platform after ladder up ", Player.currentPlatformIndex)
+  console.log("platform after ladder up ", this.currentPlatform)
+    }
+}
           
         }
       });
