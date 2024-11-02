@@ -1,6 +1,5 @@
 class Game {
     constructor () {
-        this.lives = 3;
         this.element = document.querySelector('#game-area');
         this.width = this.element.getBoundingClientRect().width;
         this.height = this.element.getBoundingClientRect().height;
@@ -83,3 +82,11 @@ function createLadders(platforms) {
 
 createLadders (myPlatforms);
 console.log("my ladders ", myLadders);
+
+const myEnemies = [];
+function createEnemy () {
+    const enemy = new Enemy(0, myPlatforms[myPlatforms.length-1].y - Enemy.height);
+    myEnemies.push(enemy);
+}
+
+setInterval (createEnemy, 5000);

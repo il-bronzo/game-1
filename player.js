@@ -7,6 +7,7 @@ class Player {
 
   constructor() {
     //visual
+    this.lives = 3;
     this.element = document.createElement("div");
     this.element.setAttribute("id", "player");
     myGame.element.appendChild(this.element);

@@ -40,3 +40,9 @@ body {
   position: absolute;
   background-color: beige;
 }
+
+.enemy {
+  position: absolute;
+  background-color: brown;
+  border-radius: 50%;
+}
